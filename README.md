@@ -14,7 +14,8 @@ get the icons, kanons and bmps of sif
      
      `install.packages("XML")`
     
-     然后等待一下即可
+     
+     /n然后等待一下即可
      
 4. 运行card.R脚本
 
