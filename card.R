@@ -5,7 +5,7 @@ library(dplyr)
 library(rjson)
 library(plyr)
 
-#¶ÁÈ¡ÍøÒ³µÄº¯Êı£¬±ÜÃâÔİÊ±Á¬½Ó²»ÉÏµ¼ÖÂÎŞ·¨¶ÁÈ¡
+#è¯»å–ç½‘é¡µçš„å‡½æ•°ï¼Œé¿å…æš‚æ—¶è¿æ¥ä¸ä¸Šå¯¼è‡´æ— æ³•è¯»å–
 read_Url <- function(url) {
   out <- tryCatch({
     url %>% as.character() %>% read_html() 
@@ -19,10 +19,10 @@ read_Url <- function(url) {
   return(out)
 }
 
-#¸üĞÂÓÚ2018-4-19
-wk0<-"E://practice//R//lovelive//lovelive"  #´ËÎª±£´æµÄ¹¤×÷Â·¾¶
-wk_icon<-"E://practice//R//lovelive//lovelive//icon" #´ËÎª±£´æµÄiconÂ·¾¶
-wk_card<-"E://practice//R//lovelive//lovelive//card" #´ËÎª±£´æµÄcardÂ·¾¶
+#æ›´æ–°äº2018-4-19ï¼ŒMAKIç”Ÿæ—¥ï¼Œå¡ç‰Œå·²æ›´æ–°è‡³ç¼–å·1548
+wk0<-"E://practice//R//lovelive//lovelive"  #æ­¤ä¸ºä¿å­˜çš„å·¥ä½œè·¯å¾„
+wk_icon<-"E://practice//R//lovelive//lovelive//icon" #æ­¤ä¸ºä¿å­˜çš„iconè·¯å¾„
+wk_card<-"E://practice//R//lovelive//lovelive//card" #æ­¤ä¸ºä¿å­˜çš„cardè·¯å¾„
 
 setwd(wk0)
 
@@ -35,7 +35,7 @@ data_idol<-data.frame(idol=factor(c("Nishikino Maki","Hoshizora Rin","Koizumi Ha
                                     "Kurosawa Ruby","Kunikida Hanamaru","Tsushima Yoshiko",
                                     "Takami Chika","Sakurauchi Riko","Watanabe You",
                                     "Ohara Mari","Kurosawa Dia","Matsuura Kanan")),
-                      team=factor(c(rep("¦Ì's",9),rep("Aqours",9))),
+                      team=factor(c(rep("Î¼'s",9),rep("Aqours",9))),
                       subteam=factor(c("BiBi","Lily White","Printemps",
                                        "Printemps","Lily White","Printemps",
                                        "BiBi","BiBi","Lily White",
@@ -47,7 +47,7 @@ str(data_idol)
 
 
 ###############
-#ÅÀ³æ
+#çˆ¬è™«å¼€å§‹
 N_Card<-1548
 
 
@@ -65,7 +65,7 @@ for(i in ins){
 }
 
 start.Time<-Sys.time()
-#¿ªÊ¼ÅÀ³æ
+#å¼€å§‹çˆ¬è™«
 for(CardID0 in 1:N_Card){
   #CardID0<-1548
   #Sys.sleep(2)
@@ -75,13 +75,13 @@ for(CardID0 in 1:N_Card){
   stop.time<-now.Time+ato.time
     
     
-  print(paste(">>>> ",floor(CardID0/N_Card*100000)/1000,"% >>>> ÒÑ»¨·ÑÊ±¼ä",duration,"sec >>>> Ô¤¼ÆÍê³ÉÊ±¼ä",stop.time,sep=""))
+  print(paste(">>>> ",floor(CardID0/N_Card*100000)/1000,"% >>>> å·²èŠ±è´¹æ—¶é—´",duration,"sec >>>> é¢„è®¡å®Œæˆæ—¶é—´",stop.time,sep=""))
   
-  #ÅÀÈ¡»ù±¾ĞÅÏ¢
+  #çˆ¬å–åŸºæœ¬ä¿¡æ¯
   URL_Card0<-"https://schoolido.lu/cards/"
   web0<-read_Url(paste(URL_Card0,(as.character(CardID0)),sep=""))
   
-  #ÅÀÈ¡ÊôĞÔ
+  #çˆ¬å–å±æ€§
   for(m in c("Smile","Pure","Cool")){
     for(n in c("non_idolized","idolized")){
       txt0<-paste(m,"_",n,"0",sep="")
@@ -98,13 +98,13 @@ for(CardID0 in 1:N_Card){
   rarity0<-web0 %>% html_nodes("title") %>% html_text() %>% str_extract(pattern="\\w{1,}$")
   
   detail.info<-web0 %>% html_nodes("small")%>% html_text()%>% str_replace_all(pattern="\n","") %>% paste(.,collapse = " ")
-  attribution0<-detail.info %>% str_extract(pattern="(¥¯©`¥ë)|(¥¹¥Ş¥¤¥ë)|(¥Ô¥å¥¢)")
+  attribution0<-detail.info %>% str_extract(pattern="(ã‚¯ãƒ¼ãƒ«)|(ã‚¹ãƒã‚¤ãƒ«)|(ãƒ”ãƒ¥ã‚¢)")
   
-  attribution0<-if_else(attribution0=="¥¹¥Ş¥¤¥ë",
+  attribution0<-if_else(attribution0=="ã‚¹ãƒã‚¤ãƒ«",
                         "Smile",
-                        if_else(attribution0=="¥Ô¥å¥¢",
+                        if_else(attribution0=="ãƒ”ãƒ¥ã‚¢",
                                 "Pure",
-                                if_else(attribution0=="¥¯©`¥ë","Cool","All","All"),
+                                if_else(attribution0=="ã‚¯ãƒ¼ãƒ«","Cool","All","All"),
                                 "All"),
                         "All")
   grade0<-detail.info %>% str_extract(pattern="Year: \\w{1,}") %>% str_extract(pattern="\\w{1,}$")
@@ -165,7 +165,7 @@ for(CardID0 in 1:N_Card){
     eval(parse(text=txt))
     txt<-paste(j,"<-c(",j,",",txt0,")",sep="")
     eval(parse(text=txt))
-  }#¼ì²é²¢ºÏ²¢
+  }#æ£€æŸ¥å¹¶åˆå¹¶
   
   ################
   #skill
@@ -174,7 +174,7 @@ for(CardID0 in 1:N_Card){
   #CardID_skill_list<-CardID[idol %in% data_idol$idol & rarity %in% c("SR","SSR","UR")]
   URL_Card1<-"https://db.loveliv.es/card/number/"
   web1<-read_Url(paste(URL_Card1,(CardID0),sep=""))
-  #ÅÀÈ¡¼¼ÄÜĞÅÏ¢
+  #çˆ¬å–æŠ€èƒ½ä¿¡æ¯
   if(idol0 %in% data_idol$idol & rarity0 %in% c("SR","SSR","UR")){
     Card_skill0.matrix<-web1 %>% html_nodes(".active")%>% html_nodes("td") %>% html_text %>% 
       matrix(.,ncol=3,byrow=T)
