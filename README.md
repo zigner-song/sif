@@ -5,15 +5,13 @@ get the icons, kanons and bmps of sif
 
 # 使用方法：
 1. 下载card.R文件，并使用记事本或者notepad++等工具打开，修改其中的路径(wk0,wk_icon,wk_card)三个变量，改为你自定义的文件路径。请先保证磁盘空间足够。
-2. 使用本地的工具运行card.R脚本，可自行下载R(https://www.r-project.org/)   是免费的！！！
+2. 使用本地的工具运行card.R脚本，可自行下载R(<https://www.r-project.org/>)   是免费的！！！
 3. 下载相应的package：
     所用的package列表如下：
       XML   rvest   stringr   dplyr   rjson   plyr
       
      安装方法非常容易，以XML为例，只需在console界面运行一句 
-     ```R
-     install.packages("XML")
-     ```
+     `install.packages("XML")`
      即可
 
      
