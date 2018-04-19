@@ -19,16 +19,15 @@ read_Url <- function(url) {
   return(out)
 }
 
-#更新于2018-4-19，MAKI生日，卡牌已更新至编号1548
+#更新于2018-4-19
+#路径信息
 wk0<-"E://practice//R//lovelive//lovelive"  #此为保存的工作路径
 wk_icon<-"E://practice//R//lovelive//lovelive//icon" #此为保存的icon路径
 wk_card<-"E://practice//R//lovelive//lovelive//card" #此为保存的card路径
 
 setwd(wk0)
 
-#card_all
-
-
+#成员资料
 data_idol<-data.frame(idol=factor(c("Nishikino Maki","Hoshizora Rin","Koizumi Hanayo",
                                     "Kousaka Honoka","Sonoda Umi","Minami Kotori",
                                     "Yazawa Nico","Ayase Eli","Toujou Nozomi",
@@ -47,9 +46,8 @@ str(data_idol)
 
 
 ###############
-#爬虫开始
-N_Card<-1548
-
+#爬虫部分
+N_Card<-1548 #目前更新至编号为1548号
 
 CardID <- idol<-rarity<-attribution<-grade<-NULL
 Card_skill<-img_URL<-img_card_URL<-list()
@@ -67,22 +65,20 @@ for(i in ins){
 start.Time<-Sys.time()
 #开始爬虫
 for(CardID0 in 1:N_Card){
-  #CardID0<-1548
-  #Sys.sleep(2)
-  #显示进度条，目前存在bug，不过不影响百分比的显示以及其他功能
+  #进度条
   now.Time<-Sys.time()
-  duration<-floor(as.numeric(now.Time-start.Time)*100)/100
+  duration<-difftime(now.Time,start.Time,units = "secs") %>% as.numeric()
+  duration0<-floor(duration*100)/100
   ato.time<-duration*(N_Card-CardID0)/CardID0
   stop.time<-now.Time+ato.time
-    
-    
+   
   print(paste(">>>> ",floor(CardID0/N_Card*100000)/1000,"% >>>> 已花费时间",duration,"sec >>>> 预计完成时间",stop.time,sep=""))
   
   #爬取基本信息
   URL_Card0<-"https://schoolido.lu/cards/"
   web0<-read_Url(paste(URL_Card0,(as.character(CardID0)),sep=""))
   
-  #爬取属性
+  #爬取三围属性
   for(m in c("Smile","Pure","Cool")){
     for(n in c("non_idolized","idolized")){
       txt0<-paste(m,"_",n,"0",sep="")
@@ -94,7 +90,7 @@ for(CardID0 in 1:N_Card){
     }
   }
   
-  
+  #爬取卡牌信息，包括人物、稀有度、卡牌颜色等
   idol0<-(web0 %>% html_nodes("strong") %>% html_text())[1]
   rarity0<-web0 %>% html_nodes("title") %>% html_text() %>% str_extract(pattern="\\w{1,}$")
   
@@ -111,10 +107,9 @@ for(CardID0 in 1:N_Card){
   grade0<-detail.info %>% str_extract(pattern="Year: \\w{1,}") %>% str_extract(pattern="\\w{1,}$")
   
   #######
-  #img
+  #查找图片 img
   
-  
-    #icon
+     #icon图片
   img_URL0<-web0 %>% html_nodes("a") %>% html_nodes(".pull-right") %>% html_nodes("img") %>% 
               html_attr("src") %>%
               str_extract_all(pattern=paste(".*",CardID0,".*",sep="")) %>% 
@@ -123,18 +118,17 @@ for(CardID0 in 1:N_Card){
   
   if(length(img_URL0)==1){img_URL0<-c(img_URL0,img_URL0)}
   if(length(img_URL0)==0){img_URL0<-c(NA,NA)}
-  
-  
-  
+ 
   img_URL0<-list(img_URL0)
   img_URL<-c(img_URL,img_URL0)
   
+  #下载icon图片
   setwd(wk_icon)
   picName<-paste(CardID0,"_",c("unidolized","idolized"),"_",str_extract(idol0,"\\w{1,}$"),".png",sep="")
   curl::curl_download(img_URL0[[1]][1],destfile = picName[1] )
   curl::curl_download(img_URL0[[1]][2],destfile = picName[2] )
   
-    #Card
+    #爬取Card立绘
   setwd(wk_card)
   
   img_card_URL0<-web0 %>% html_nodes(".card_images") %>% html_nodes("a") %>% html_attr("href") %>%
@@ -143,12 +137,12 @@ for(CardID0 in 1:N_Card){
   if(length(img_card_URL0)==1){img_card_URL0<-c(img_card_URL0,img_card_URL0)}
   img_card_URL0<-list(img_card_URL0)
   img_card_URL<-c(img_card_URL,img_card_URL0)
-  
+  #下载立绘
   picName<-paste(CardID0,"_",c("unidolized","idolized"),"_",str_extract(idol0,"\\w{1,}$"),".png",sep="")
   curl::curl_download(img_card_URL0[[1]][1],destfile = picName[1] )
   curl::curl_download(img_card_URL0[[1]][2],destfile = picName[2] )
   
-  
+  #重新设置工作路径
   setwd(wk0)
   
   ##############
@@ -166,13 +160,11 @@ for(CardID0 in 1:N_Card){
     eval(parse(text=txt))
     txt<-paste(j,"<-c(",j,",",txt0,")",sep="")
     eval(parse(text=txt))
-  }#检查并合并
+  }#检查并合并全部信息
   
   ################
-  #skill
+  #爬取skill信息  
   
-  
-  #CardID_skill_list<-CardID[idol %in% data_idol$idol & rarity %in% c("SR","SSR","UR")]
   URL_Card1<-"https://db.loveliv.es/card/number/"
   web1<-read_Url(paste(URL_Card1,(CardID0),sep=""))
   #爬取技能信息
@@ -185,16 +177,8 @@ for(CardID0 in 1:N_Card){
   }
   
   Card_skill<-c(Card_skill,list(Card_skill0))
-  
-    
-  
-  
-  
-  
   #################
 }
-
-
 
 Card_Total_names<-c("CardID","idol","rarity","attribution","grade",ins)
 paste(Card_Total_names,collapse = ",")
