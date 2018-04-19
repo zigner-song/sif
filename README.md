@@ -4,7 +4,8 @@ get the icons, kanons and bmps of sif
 爬虫过程（编号1~1548）一共8531.91秒，爬取1548*8=12384张图片以及一些卡牌的信息
 
 如需使用，目前还需要自行下载R(https://www.r-project.org/)
-建议下载RStudio(https://www.rstudio.com/)，均为免费。
+建议下载RStudio(https://www.rstudio.com/)
+均为免费
 
 以及下载相应的package
 
