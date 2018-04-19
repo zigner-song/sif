@@ -1,7 +1,7 @@
 # sif
 get the icons, kanons and bmps of sif
 
-完成全部下载（编号1~1548）亲测一共8531.91秒
+完成全部下载（编号1~1548的卡面）亲测一共8531.91秒
 
 # 使用方法：
 1. 下载card.R文件，并使用记事本或者notepad++等工具打开，修改其中的路径(wk0,wk_icon,wk_card)三个变量，改为你自定义的文件路径。请先保证磁盘空间足够。
@@ -31,6 +31,6 @@ SIF全部卡牌信息（立绘、小图、属性、技能）的获取 √
 
 
 联系方式: 
-songxy@psych.ac.cn
+zigner.song@gmail.com
 
 QQ: 596655168
