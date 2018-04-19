@@ -11,7 +11,7 @@ get the icons, kanons and bmps of sif
       XML   rvest   stringr   dplyr   rjson   plyr
       
      安装方法非常容易，以XML为例，只需在console界面运行一句 
-     ```r
+     ```R
      install.packages("XML")
      ```
      即可
