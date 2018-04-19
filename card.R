@@ -69,6 +69,7 @@ start.Time<-Sys.time()
 for(CardID0 in 1:N_Card){
   #CardID0<-1548
   #Sys.sleep(2)
+  #显示进度条，目前存在bug，不过不影响百分比的显示以及其他功能
   now.Time<-Sys.time()
   duration<-floor(as.numeric(now.Time-start.Time)*100)/100
   ato.time<-duration*(N_Card-CardID0)/CardID0
