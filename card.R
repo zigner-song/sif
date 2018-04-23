@@ -5,9 +5,6 @@ wk_card<-"E://practice//R//lovelive//lovelive//card" #此为保存的card路径
 
 setwd(wk0)
 
-#card_all
-
-
 data_idol<-data.frame(idol=factor(c("Nishikino Maki","Hoshizora Rin","Koizumi Hanayo",
                                     "Kousaka Honoka","Sonoda Umi","Minami Kotori",
                                     "Yazawa Nico","Ayase Eli","Toujou Nozomi",
@@ -91,7 +88,7 @@ updateCardInfo<-function(CardList,
                               "All")
         grade0<-detail.info %>% str_extract(pattern="Year: \\w{1,}") %>% str_extract(pattern="\\w{1,}$")
         
-        #修正羁绊
+        #修正羁绊带来的属性值加成
         var_attribution0<-paste(attribution0,c("idolized0","non_idolized0"),sep="_")
         if(attribution0 != "All"){
           kizuna0<-df_kizuna$kizuna[df_kizuna$rarity==rarity0]
