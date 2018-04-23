@@ -34,7 +34,9 @@ df_kizuna<-data.frame(rarity=c("N","R","SR","SSR","UR"),
 N_Card<-1556
 
 #爬虫工具
-updateCardInfo<-function(CardList,img_download=F){
+updateCardInfo<-function(CardList,
+                         img_download=F #是否要下载图片： T=要下载；F=不下载
+                        ){
       startTime<-Sys.time()
       CardID <- idol<-rarity<-attribution<-grade<-NULL
       Card_skill<-img_URL<-img_card_URL<-CardInfo<-list()
@@ -246,7 +248,7 @@ for(CardID0 in 1:N_Card){
   grade0<-detail.info %>% str_extract(pattern="Year: \\w{1,}") %>% str_extract(pattern="\\w{1,}$")
   
   #######
-  #img
+  # 下载卡面和icon
   
   
     #icon
