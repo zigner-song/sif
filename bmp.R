@@ -15,13 +15,13 @@ sort(main_bmp.df$live_setting_id)
 str(main_bmp.df)
 save(main_bmp.df,file="main_bmp_df.RData")
 
-#主键为live_setting_id
+#涓婚敭涓簂ive_setting_id
 
 
   #main_bmp:
-  #attribute_icon:颜色
+  #attribute_icon:棰滆壊
 
-# 查询具体谱面的地址
+# 鏌ヨ鍏蜂綋璋遍潰鐨勫湴鍧�
 bmp_all=NULL
 
 bmplist<-sort(main_bmp.df$live_setting_id)
@@ -31,7 +31,6 @@ updateBMPinfo<-function(bmplist){
   startTime=Sys.time()
   
         for(i in 1:length(bmplist)){
-          #i<-100
           i_bmp<-bmplist[i]
           address0<-main_bmp.df$notes_setting_asset[main_bmp.df$live_setting_id==i_bmp]
           name0<-main_bmp.df$name[main_bmp.df$live_setting_id==i_bmp]
