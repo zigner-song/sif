@@ -3,6 +3,19 @@ get the icons, kanons and bmps of sif
 
 完成全部下载（编号1~1548的卡面）亲测一共8531.91秒
 
+# 文件说明：
+目前已更新了3个脚本文件
+_________________________
+`package.R` |  
+
+Name | Academy | score 
+- | :-: | -: 
+Harry Potter | Gryffindor| 90 
+Hermione Granger | Gryffindor | 100 
+Draco Malfoy | Slytherin | 90
+
+
+
 # 使用方法：
 1. 下载package.R,card.R文件，并使用记事本或者notepad++等工具打开，修改其中card.R中的路径(wk0,wk_icon,wk_card)三个变量，改为你自定义的文件路径。请先保证磁盘空间足够。
 2. 使用本地的工具运行card.R脚本，可自行下载R(<https://www.r-project.org/>)   是免费的！！！
@@ -12,10 +25,10 @@ get the icons, kanons and bmps of sif
       
      安装方法非常容易，以XML为例，只需在console界面运行一句 
      `install.packages("XML")`
-     ******即可
+     <br/>即可
 
      
-4. 运行card.R脚本
+4. 运行package.R,card.R脚本
 
 
 如果有资源有时间有钱，会放在服务器上，然后用户就不需要再安装R以及相应的package了
